@@ -194,6 +194,38 @@ Main activity.xml
 </LinearLayout>
 
 
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+
+android manifest
+
+    <application
+        android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.Videoplyer"
+        tools:targetApi="31">
+        <activity
+            android:name=".MainActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>
+
+
 
 
 ЗАДАЧА 3
@@ -300,6 +332,38 @@ Mаin аctivity.xml
    </LinearLayout>
 </LinearLayout>
 
+
+mаnifest
+
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+
+
+    <application
+        android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.Audio"
+        tools:targetApi="31">
+        <activity
+            android:name=".MainActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>
 
 
 
@@ -451,3 +515,137 @@ Mаin аctivity.xml
        android:layout_width="match_parent"
        android:layout_height="match_parent" />
 </LinearLayout>
+
+
+
+
+
+ЗАДАЧА 7
+
+Android RatingBar
+
+Main.Java
+
+package com.example.ratingapp;
+
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.RatingBar;
+import android.widget.Toast;
+import androidx.appcompat.app.AppCompatActivity;
+
+public class MainActivity extends AppCompatActivity {
+
+    private RatingBar ratingBar;
+    private Button submitButton;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        ratingBar = findViewById(R.id.ratingBar);
+        submitButton = findViewById(R.id.submitButton);
+
+        submitButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                float rating = ratingBar.getRating();
+                Toast.makeText(MainActivity.this, "Rating: " + rating, Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+}
+
+
+Xml
+
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    tools:context=".MainActivity">
+
+    <RatingBar
+        android:id="@+id/ratingBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="100dp"
+        android:numStars="5"
+        android:stepSize="1.0"
+        android:rating="0"
+        android:isIndicator="false"
+        android:theme="@style/Widget.AppCompat.RatingBar.Small"/>
+
+    <Button
+        android:id="@+id/submitButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/ratingBar"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:text="SUBMIT" />
+</RelativeLayout>
+
+ЗАДАЧА 8 
+
+Main.java
+
+import android.support.v4.app.FragmentActivity;
+	import android.os.Bundle;
+	 
+	import com.google.android.gms.maps.CameraUpdateFactory;
+	import com.google.android.gms.maps.GoogleMap;
+	import com.google.android.gms.maps.OnMapReadyCallback;
+	import com.google.android.gms.maps.SupportMapFragment;
+	import com.google.android.gms.maps.model.LatLng;
+	import com.google.android.gms.maps.model.MarkerOptions;
+	 
+	public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
+	 
+	    private GoogleMap mMap;
+	 
+	    @Override
+	    protected void onCreate(Bundle savedInstanceState) {
+	        super.onCreate(savedInstanceState);
+	        setContentView(R.layout.activity_maps);
+	        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
+	        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+	                .findFragmentById(R.id.map);
+	        mapFragment.getMapAsync(this);
+	    }
+	 
+	 
+	    /**
+	     * Manipulates the map once available.
+	     * This callback is triggered when the map is ready to be used.
+	     * This is where we can add markers or lines, add listeners or move the camera. In this case,
+	     * we just add a marker near Sydney, Australia.
+	     * If Google Play services is not installed on the device, the user will be prompted to install
+	     * it inside the SupportMapFragment. This method will only be triggered once the user has
+	     * installed Google Play services and returned to the app.
+	     */
+	    @Override
+	    public void onMapReady(GoogleMap googleMap) {
+	        mMap = googleMap;
+	 
+	        // Add a marker in Sydney and move the camera
+	        LatLng sydney = new LatLng(-34, 151);
+        //LatLng almaty = new LatLng(43.26, 76.94);
+
+	        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
+	        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+	    }
+	}
+
+key AIzaSyDlrysRab7buK9aufWAvtt_HbOFAGI0KnE
+
+manifest
+
+<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+<uses-permission android:name="android.permission.INTERNET"/>
