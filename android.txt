@@ -1,0 +1,453 @@
+ЗАДАЧА 1
+
+Создаем кнопки в Android
+
+Main.java
+
+package com.example.buttons;
+
+import android.os.Bundle;
+import android.widget.Button;
+import android.widget.Toast;
+import androidx.appcompat.app.AppCompatActivity;
+
+public class MainActivity extends AppCompatActivity {
+   @Override
+   protected void onCreate(Bundle savedInstanceState) {
+       super.onCreate(savedInstanceState);
+       setContentView(R.layout.activity_main);
+
+       Button buttonTop = findViewById(R.id.button_top);
+       buttonTop.setOnClickListener(v ->
+               Toast.makeText(MainActivity.this, "Нажата Верхняя Кнопка", Toast.LENGTH_SHORT).show()
+       );
+
+       Button buttonLeft = findViewById(R.id.button_left);
+       buttonLeft.setOnClickListener(v ->
+               Toast.makeText(MainActivity.this, "Нажата Левая Кнопка", Toast.LENGTH_SHORT).show()
+       );
+
+       Button buttonMiddle = findViewById(R.id.button_middle);
+       buttonMiddle.setOnClickListener(v ->
+               Toast.makeText(MainActivity.this, "Нажата Кнопка размером 200x100 dp", Toast.LENGTH_SHORT).show()
+       );
+
+       Button buttonLarge = findViewById(R.id.button_large);
+       buttonLarge.setOnClickListener(v ->
+               Toast.makeText(MainActivity.this, "Нажата Большая Кнопка", Toast.LENGTH_SHORT).show()
+       );
+   }
+}
+
+
+Main activity.xml
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    tools:context=".MainActivity">
+
+    <Button
+        android:id="@+id/button_top"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="8dp"
+        android:backgroundTint="#6200EE"
+        android:text="Верхняя Кнопка"
+        android:textColor="#FFFFFF" />
+
+    <Button
+        android:id="@+id/button_left"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="start"
+        android:layout_marginBottom="8dp"
+        android:backgroundTint="#6200EE"
+        android:text="Левая Кнопка"
+        android:textColor="#FFFFFF" />
+
+    <Button
+        android:id="@+id/button_middle"
+        android:layout_width="200dp"
+        android:layout_height="100dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="8dp"
+        android:backgroundTint="#6200EE"
+        android:text="Кнопка размером 200x100 dp"
+        android:textColor="#FFFFFF"
+        android:textSize="14sp" />
+
+    <Button
+        android:id="@+id/button_large"
+        android:layout_width="300dp"
+        android:layout_height="150dp"
+        android:layout_gravity="center_horizontal"
+        android:backgroundTint="#6200EE"
+        android:text="Большая Кнопка"
+        android:textColor="#FFFFFF"
+        android:textSize="18sp" />
+
+</LinearLayout>
+
+
+
+
+ЗАДАЧА 2
+
+Написать видеоплеер
+
+Main.java
+package com.example.videoplyer;
+
+import android.net.Uri;
+import android.os.Bundle;
+import android.widget.Button;
+import android.widget.VideoView;
+import android.widget.MediaController;
+import androidx.appcompat.app.AppCompatActivity;
+
+public class MainActivity extends AppCompatActivity {
+   private VideoView videoView;
+   private Button playButton;
+   private Button pauseButton;
+   private Button stopButton;
+
+   @Override
+   protected void onCreate(Bundle savedInstanceState) {
+       super.onCreate(savedInstanceState);
+       setContentView(R.layout.activity_main);
+
+       videoView = findViewById(R.id.video_view);
+       playButton = findViewById(R.id.button_play);
+       pauseButton = findViewById(R.id.button_pause);
+       stopButton = findViewById(R.id.button_stop);
+
+       // Set up MediaController
+       MediaController mediaController = new MediaController(this);
+       mediaController.setAnchorView(videoView);
+       videoView.setMediaController(mediaController);
+
+       // Set the video URI (replace with your video file URI)
+       Uri videoUri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.raccoon);
+       videoView.setVideoURI(videoUri);
+
+       // Play button functionality
+       playButton.setOnClickListener(v -> videoView.start());
+
+       // Pause button functionality
+       pauseButton.setOnClickListener(v -> videoView.pause());
+
+       // Stop button functionality
+       stopButton.setOnClickListener(v -> {
+           videoView.stopPlayback();
+           videoView.resume();
+       });
+   }
+}
+
+
+
+Main activity.xml
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+   xmlns:android="http://schemas.android.com/apk/res/android"
+   xmlns:tools="http://schemas.android.com/tools"
+   android:layout_width="match_parent"
+   android:layout_height="match_parent"
+   android:orientation="vertical"
+   tools:context=".MainActivity">
+
+   <LinearLayout
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:orientation="horizontal"
+       android:gravity="center">
+
+       <Button
+           android:id="@+id/button_play"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:text="PLAY"/>
+
+       <Button
+           android:id="@+id/button_pause"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:text="PAUSE"/>
+
+       <Button
+           android:id="@+id/button_stop"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:text="STOP"/>
+   </LinearLayout>
+
+   <VideoView
+       android:id="@+id/video_view"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"/>
+</LinearLayout>
+
+
+
+
+ЗАДАЧА 3
+
+Написать аудиоплеер
+
+Mаin аctivity.jаvа
+
+package com.example.audio;
+
+import android.media.MediaPlayer;
+import android.os.Bundle;
+import android.widget.Button;
+import androidx.appcompat.app.AppCompatActivity;
+
+public class MainActivity extends AppCompatActivity {
+   private MediaPlayer mediaPlayer;
+   private Button playButton;
+   private Button pauseButton;
+   private Button stopButton;
+
+   @Override
+   protected void onCreate(Bundle savedInstanceState) {
+       super.onCreate(savedInstanceState);
+       setContentView(R.layout.activity_main);
+
+       playButton = findViewById(R.id.button_play);
+       pauseButton = findViewById(R.id.button_pause);
+       stopButton = findViewById(R.id.button_stop);
+
+       // Initialize MediaPlayer with a sample audio file (replace with your audio file)
+       mediaPlayer = MediaPlayer.create(this, R.raw.sound);
+
+       // Play button functionality
+       playButton.setOnClickListener(v -> {
+           if (mediaPlayer != null) {
+               mediaPlayer.start();
+           }
+       });
+
+       // Pause button functionality
+       pauseButton.setOnClickListener(v -> {
+           if (mediaPlayer != null && mediaPlayer.isPlaying()) {
+               mediaPlayer.pause();
+           }
+       });
+
+       // Stop button functionality
+       stopButton.setOnClickListener(v -> {
+           if (mediaPlayer != null) {
+               mediaPlayer.stop();
+               mediaPlayer.reset();
+               mediaPlayer = MediaPlayer.create(this, R.raw.sound);
+           }
+       });
+   }
+
+   @Override
+   protected void onDestroy() {
+       super.onDestroy();
+       if (mediaPlayer != null) {
+           mediaPlayer.release();
+           mediaPlayer = null;
+       }
+   }
+}
+
+
+
+
+Mаin аctivity.xml
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+   xmlns:android="http://schemas.android.com/apk/res/android"
+   xmlns:tools="http://schemas.android.com/tools"
+   android:layout_width="match_parent"
+   android:layout_height="match_parent"
+   android:orientation="vertical"
+   tools:context=".MainActivity">
+
+   <LinearLayout
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:orientation="horizontal"
+       android:gravity="center">
+
+       <Button
+           android:id="@+id/button_play"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:text="Старт"/>
+
+       <Button
+           android:id="@+id/button_pause"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:text="Пауза"/>
+
+       <Button
+           android:id="@+id/button_stop"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:text="Стоп"/>
+   </LinearLayout>
+</LinearLayout>
+
+
+
+
+
+ЗАДАЧА 4
+
+Изменить картинку по нажатию кнопки
+
+Mаin аctivity.xml
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#4a5c7d"
+    tools:context=".MainActivity">
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_margin="16dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/image1" />
+
+    <Button
+        android:id="@+id/firstButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/imageView"
+        android:layout_marginTop="20dp"
+        android:layout_centerHorizontal="true"
+        android:text="FIRST IMAGE" />
+
+    <Button
+        android:id="@+id/secondButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/firstButton"
+        android:layout_marginTop="10dp"
+        android:layout_centerHorizontal="true"
+        android:text="SECOND IMAGE" />
+</RelativeLayout>
+
+
+
+Mаin аctivity.jаvа
+
+package com.example.kartinki;
+
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
+import androidx.appcompat.app.AppCompatActivity;
+
+public class MainActivity extends AppCompatActivity {
+
+    private ImageView imageView;
+    private Button firstButton;
+    private Button secondButton;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        imageView = findViewById(R.id.imageView);
+        firstButton = findViewById(R.id.firstButton);
+        secondButton = findViewById(R.id.secondButton);
+
+        firstButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                imageView.setImageResource(R.drawable.image1);
+            }
+        });
+
+        secondButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                imageView.setImageResource(R.drawable.image2);
+            }
+        });
+    }
+}
+
+
+
+
+
+ЗАДАЧА 5
+
+ArrayAdapter
+
+Mаin аctivity.jаvа
+
+package com.example.arry;
+
+import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+import android.widget.Toast;
+import androidx.appcompat.app.AppCompatActivity;
+
+public class MainActivity extends AppCompatActivity {
+
+   private ListView listView;
+
+   @Override
+   protected void onCreate(Bundle savedInstanceState) {
+       super.onCreate(savedInstanceState);
+       setContentView(R.layout.activity_main);
+
+       listView = findViewById(R.id.listView);
+
+       String[] items = {"cow", "bull", "bison", "elephant", "calf", "hippo"};
+       ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, items);
+
+       listView.setAdapter(adapter);
+
+       listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+           @Override
+           public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+               String selectedItem = (String) parent.getItemAtPosition(position);
+               Toast.makeText(MainActivity.this, selectedItem + " clicked", Toast.LENGTH_SHORT).show();
+           }
+  });
+}
+}
+
+
+
+Mаin аctivity.xml
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+   xmlns:tools="http://schemas.android.com/tools"
+   android:layout_width="match_parent"
+   android:layout_height="match_parent"
+   android:orientation="vertical"
+   tools:context=".MainActivity">
+
+   <ListView
+       android:id="@+id/listView"
+       android:layout_width="match_parent"
+       android:layout_height="match_parent" />
+</LinearLayout>
