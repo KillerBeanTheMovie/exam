@@ -1,0 +1,438 @@
+ЗАДАЧА 1.
+Даны три целых числа. Возвести в квадрат отрицательные числа и в третью степень — положительные (число 0 не изменять).
+ДОП. Из трех данных чисел выбрать наименьшее и наибольшее.
+
+def process_numbers(a, b, c):
+    # Создаем список с обработанными числами
+    result = [x*2 if x < 0 else x*3 if x > 0 else 0 for x in [a, b, c]]
+    
+    # Находим наименьшее и наибольшее число
+    min_number = min(result)
+    max_number = max(result)
+    
+    return result, min_number, max_number
+
+# Пример использования
+a, b, c = -2, 0, 3
+result, min_num, max_num = process_numbers(a, b, c)
+print("Обработанные числа:", result)
+print("Наименьшее число:", min_num)
+print("Наибольшее число:", max_num)
+
+
+
+
+ЗАДАЧА 2.
+Ввести с клавиатуры два числа. Определить, что больше, сумма квадратов
+или квадрат суммы этих чисел. Ответ вывести в виде сообщения.
+
+def compare_numbers(num1, num2):
+    sum_of_squares = num1*2 + num2*2
+    square_of_sum = (num1 + num2)**2
+    
+    if sum_of_squares > square_of_sum:
+        return "Сумма квадратов чисел больше квадрата суммы."
+    elif sum_of_squares < square_of_sum:
+        return "Квадрат суммы чисел больше суммы квадратов."
+    else:
+        return "Сумма квадратов чисел равна квадрату суммы."
+
+# Ввод чисел с клавиатуры
+num1 = float(input("Введите первое число: "))
+num2 = float(input("Введите второе число: "))
+
+# Сравнение и вывод результата
+result_message = compare_numbers(num1, num2)
+print(result_message)
+
+
+
+
+ЗАДАЧА 3.
+Ввести с клавиатуры значения трех сторон треугольника a, b и c и опреде-
+лить, является ли он прямоугольным. Ответ вывести в виде сообщения.
+
+def is_right_triangle(a, b, c):
+    # Находим наибольшую сторону
+    max_side = max(a, b, c)
+    
+    # Проверяем теорему Пифагора
+    if max_side == a:
+        return a*2 == b2 + c*2
+    elif max_side == b:
+        return b*2 == a2 + c*2
+    else:
+        return c*2 == a2 + b*2
+
+# Ввод сторон треугольника с клавиатуры
+a = float(input("Введите длину стороны a: "))
+b = float(input("Введите длину стороны b: "))
+c = float(input("Введите длину стороны c: "))
+
+# Проверка и вывод результата
+if is_right_triangle(a, b, c):
+    print("Треугольник является прямоугольным.")
+else:
+    print("Треугольник не является прямоугольным.")
+
+
+
+ЗАДАЧА 4. 
+Найти периметр и площадь прямоугольного треугольника, если даны длины его катетов a и b.
+
+import math
+
+def calculate_triangle_properties(a, b):
+    # Находим гипотенузу
+    c = math.sqrt(a*2 + b*2)
+    
+    # Находим периметр
+    perimeter = a + b + c
+    
+    # Находим площадь
+    area = 0.5 * a * b
+    
+    return perimeter, area
+
+# Ввод длин катетов с клавиатуры
+a = float(input("Введите длину катета a: "))
+b = float(input("Введите длину катета b: "))
+
+# Вычисление и вывод периметра и площади
+perimeter, area = calculate_triangle_properties(a, b)
+print("Периметр прямоугольного треугольника:", perimeter)
+print("Площадь прямоугольного треугольника:", area)
+
+
+
+
+ЗАДАЧА 5. 
+Дана длина окружности. Найти площадь круга, ограниченного этой окружностью. В качестве значения Pi использовать 3.14. 
+
+def calculate_circle_area(circumference):
+    # Используем значение Pi
+    pi = 3.14
+    
+    # Находим радиус
+    radius = circumference / (2 * pi)
+    
+    # Находим площадь круга
+    area = pi * radius**2
+    
+    return area
+
+# Ввод длины окружности с клавиатуры
+circumference = float(input("Введите длину окружности: "))
+
+# Вычисление и вывод площади круга
+area = calculate_circle_area(circumference)
+print("Площадь круга, ограниченного данной окружностью:", area)
+
+
+
+
+ЗАДАЧА 6
+Даны натуральные числа х и у. Вычислить произведение , используя лишь операцию сложения. Задачу решить двумя способами x y
+
+def multiply_by_recursion(x, y):
+    if y == 0:
+        return 0
+    elif y > 0:
+        return x + multiply_by_recursion(x, y - 1)
+
+# Пример использования
+x = int(input("Введите первое число x: "))
+y = int(input("Введите второе число y: "))
+product = multiply_by_recursion(x, y)
+print("Произведение:", product)
+
+
+
+
+ЗАДАЧА 7
+Даны два целых числа A и B (A < B). Вывести все целые числа, расположенные между данными числами (включая сами эти числа), в порядке их возрастания, а также количество N этих чисел. 
+
+def numbers_between(A, B):
+    count = 0  # Инициализируем счетчик
+    
+    # Проходим через числа от A до B (включительно)
+    for num in range(A, B + 1):
+        print(num, end=" ")  # Выводим число на экран
+        count += 1  # Увеличиваем счетчик
+    
+    return count
+
+# Ввод чисел A и B с клавиатуры
+A = int(input("Введите целое число A: "))
+B = int(input("Введите целое число B (A < B): "))
+
+# Печать чисел между A и B и подсчет их количества
+print("\nЦелые числа между A и B (включительно):")
+count = numbers_between(A, B)
+print("\nКоличество чисел между A и B:", count)
+
+
+
+
+ЗАДАЧА 8
+В заданной строке посчитать количество русских букв «А».
+
+def count_A_letters(string):
+    count = 0
+    for letter in string:
+        if letter == 'А' or letter == 'а':
+            count += 1
+    return count
+
+# Пример использования функции
+input_string = "Эта строка содержит несколько букв А."
+print("Количество букв 'А':", count_A_letters(input_string))
+
+
+
+
+
+
+ЗАДАЧА 9.
+В заданной строке удалить второй и четвертый по счету символы.
+
+def remove_specific_characters(input_string):
+    # Проверяем, что строка содержит как минимум 4 символа
+    if len(input_string) >= 4:
+        # Удаляем второй и четвертый символы (индексы 1 и 3)
+        modified_string = input_string[:1] + input_string[2:3] + input_string[4:]
+        return modified_string
+    else:
+        return "Строка слишком короткая, чтобы удалить второй и четвертый символы."
+
+# Пример использования функции
+input_string = "Пример строки для изменения"
+result_string = remove_specific_characters(input_string)
+print("Измененная строка:", result_string)
+
+
+
+
+
+ЗАДАЧА 10
+Класс Persona содержит информацию о ФИО человека, дате рождения и адресе человека. Метод подсчитывает количество дней оставшихся до следующего дня рождения. По заданному ФИО человека узнать количество дней оставшихся до следующего дня рождения.
+
+from datetime import datetime, timedelta
+
+class Persona:
+    def _init_(self, full_name, birth_date, address):
+        self.full_name = full_name
+        self.birth_date = birth_date
+        self.address = address
+    
+    def days_until_next_birthday(self):
+        # Получаем текущую дату
+        current_date = datetime.now()
+        
+        # Преобразуем строку даты рождения в объект datetime
+        birth_date = datetime.strptime(self.birth_date, "%Y-%m-%d")
+        
+        # Узнаем дату следующего дня рождения в этом году
+        next_birthday = birth_date.replace(year=current_date.year)
+        if next_birthday < current_date:
+            next_birthday = next_birthday.replace(year=current_date.year + 1)
+        
+        # Считаем количество дней до следующего дня рождения
+        days_until_next_birthday = (next_birthday - current_date).days
+        
+        return days_until_next_birthday
+
+# Пример использования класса
+person_info = {
+    "full_name": "Иванов Иван Иванович",
+    "birth_date": "1990-05-15",
+    "address": "Москва, ул. Пушкина, д.10"
+}
+
+person = Persona(**person_info)
+days_until_birthday = person.days_until_next_birthday()
+print("Дней до следующего дня рождения:", days_until_birthday)
+
+
+
+
+ЗАДАЧА 11.
+Напишите метод, заменяющий в строке все вхождения слова «бяка» на «вырезано цензурой».
+
+def censor_word(sentence):
+    # Заменяем все вхождения слова "бяка" на "вырезано цензурой"
+    censored_sentence = sentence.replace("бяка", "вырезано цензурой")
+    return censored_sentence
+
+# Пример использования функции censor_word
+input_sentence = "Этот текст содержит слово бяка. Но это не бяка."
+censored_sentence = censor_word(input_sentence)
+print("Исходный текст:", input_sentence)
+print("Текст после цензуры:", censored_sentence)
+
+
+
+
+
+ЗАДАЧА 12
+Дан массив размера N. Вывести его элементы в обратном порядке. 
+
+def reverse_array(arr):
+    reversed_arr = arr[::-1]  # Используем срез для получения массива в обратном порядке
+    return reversed_arr
+
+# Пример использования функции
+array = [1, 2, 3, 4, 5]
+reversed_array = reverse_array(array)
+print("Элементы массива в обратном порядке:", reversed_array)
+
+
+
+
+ЗАДАЧА 13.
+Дана строка S и число N. Преобразовать строку S в строку длины N следующим образом: если длина строки S больше N, то отбросить первые символы, если длина строки S меньше N, то в ее начало добавить символы "." (точка). 
+
+def transform_string(S, N):
+    if len(S) > N:
+        # Если длина строки S больше N, отбрасываем лишние символы
+        transformed_string = S[-N:]
+    elif len(S) < N:
+        # Если длина строки S меньше N, добавляем точки в начало строки
+        dots_count = N - len(S)
+        transformed_string = "." * dots_count + S
+    else:
+        # Если длина строки S равна N, возвращаем ее без изменений
+        transformed_string = S
+    return transformed_string
+
+# Пример использования функции
+S = "Hello"
+N = 8
+transformed_string = transform_string(S, N)
+print("Преобразованная строка:", transformed_string)
+
+
+
+
+ЗАДАЧА 14.
+Построить строку, состоящую из малых букв латинского алфавита (по
+алфавиту).
+
+Вы можете использовать метод join() в сочетании с генератором списка и функцией chr() для построения строки, состоящей из малых букв латинского алфавита. Вот пример:
+
+# Генерируем список всех малых букв латинского алфавита
+letters = [chr(ord('a') + i) for i in range(26)]
+
+# Соединяем буквы в строку с помощью метода join()
+alphabet_string = ''.join(letters)
+
+# Выводим полученную строку
+print(alphabet_string)
+
+
+
+
+
+ЗАДАЧА 15.
+а).Tkinter.Создать форму произвольного размера
+б).На этой форме разместить следующие элементы:
+a)Button
+b)Label
+c)Entry
+в).Каждый элемент имеет свою цветовую характеристику(фон,текст)
+г).Обработать нажатие или выбор для каждого элемента выдав
+ соответствующее сообщение.
+
+ import tkinter as tk
+from tkinter import messagebox
+
+def on_button_click():
+    messagebox.showinfo("Button Clicked", "You clicked the button!")
+
+def on_entry_change(event):
+    messagebox.showinfo("Entry Changed", f"You entered: {entry.get()}")
+
+# Создание главного окна
+root = tk.Tk()
+root.title("Tkinter Example")
+root.geometry("400x300")
+
+# Создание и настройка кнопки
+button = tk.Button(root, text="Button", bg="lightblue", fg="darkblue", command=on_button_click)
+button.pack(pady=20)
+
+# Создание и настройка метки
+label = tk.Label(root, text="label", bg="lightgreen", fg="darkgreen")
+label.pack(pady=20)
+
+# Создание и настройка поля ввода
+entry = tk.Entry(root, bg="lightyellow", fg="darkred")
+entry.pack(pady=20)
+entry.bind("<Return>", on_entry_change)  # Обработка события "Enter"
+
+# Запуск главного цикла приложения
+root.mainloop()
+
+
+
+
+ЗАДАЧА 16
+Рисуем линии, прямоугольники, круг и текст в Tkinter 
+
+import tkinter as tk
+
+class MainApp:
+    def __init__(self, root):
+        self.root = root
+        self.root.title("гарфика и прочее")
+        self.root.geometry("600x450")
+        self.create_main_menu()
+
+    def create_main_menu(self):
+        self.clear_window()
+        tk.Button(self.root, text="Линии", command=self.show_lines).pack(pady=10)
+        tk.Button(self.root, text="Формы", command=self.show_shapes).pack(pady=10)
+        tk.Button(self.root, text="Цвета", command=self.show_colors).pack(pady=10)
+        tk.Button(self.root, text="Текст", command=self.show_text).pack(pady=10)
+
+    def clear_window(self):
+        for widget in self.root.winfo_children():
+            widget.destroy()
+
+    def show_lines(self):
+        self.clear_window()
+        canvas = tk.Canvas(self.root, width=400, height=300)
+        canvas.pack()
+        canvas.create_line(50, 50, 200, 50)
+        canvas.create_line(50, 100, 200, 200)
+        canvas.create_line(100, 50, 100, 200)
+        canvas.create_polygon(250, 50, 300, 100, 200, 100, fill='', outline='black')
+        tk.Button(self.root, text="Назад", command=self.create_main_menu).pack(pady=10)
+
+    def show_shapes(self):
+        self.clear_window()
+        canvas = tk.Canvas(self.root, width=400, height=300)
+        canvas.pack()
+        canvas.create_oval(50, 50, 100, 100, fill='blue')  # Изменили цвет круга на синий
+        canvas.create_rectangle(150, 50, 250, 100, fill='purple')  # Добавили фиолетовый прямоугольник
+        tk.Button(self.root, text="Назад", command=self.create_main_menu).pack(pady=10)
+
+    def show_colors(self):
+        self.clear_window()
+        tk.Label(self.root, text="", bg="orange", width=20, height=5).pack(pady=10)
+        tk.Label(self.root, text="", bg="blue", width=20, height=5).pack(pady=10)
+        tk.Label(self.root, text="", bg="red", width=20, height=5).pack(pady=10)
+        tk.Button(self.root, text="Назад", command=self.create_main_menu).pack(pady=10)
+
+    def show_text(self):
+        self.clear_window()
+        text = tk.Text(self.root, width=40, height=10)
+        text.insert(tk.END, "From the top to the bottom Bottom to top I stop\nAt the core I've forgotten In the middle of my thoughts\n")
+        text.insert(tk.END, "Taken far from my safety\nThe picture's there\nThe memory won't escape me\nBut why should I care?\n")
+        text.pack(pady=10)
+        tk.Button(self.root, text="Назад", command=self.create_main_menu).pack(pady=10)
+
+if __name__ == "__main__":
+    root = tk.Tk()
+    app = MainApp(root)
+    root.mainloop()
